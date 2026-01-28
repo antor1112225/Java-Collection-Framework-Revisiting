@@ -1,0 +1,47 @@
+// File: src/QueueAndStackUsingPQ.java
+
+import java.util.PriorityQueue;
+import java.util.Comparator;
+
+public class QueueAndStackUsingPQ {
+
+    // Queue behavior (FIFO)
+    static class QueueUsingPQ {
+        private int index = 0;
+        PriorityQueue<int[]> pq = new PriorityQueue<>(Comparator.comparingInt(a -> a[0]));
+
+        void enqueue(int value) {
+            pq.add(new int[]{index++, value});
+        }
+
+        int dequeue() {
+            return pq.poll()[1];
+        }
+    }
+
+    // Stack behavior (LIFO)
+    static class StackUsingPQ {
+        private int index = 0;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> b[0] - a[0]);
+
+        void push(int value) {
+            pq.add(new int[]{index++, value});
+        }
+
+        int pop() {
+            return pq.poll()[1];
+        }
+    }
+
+    public static void main(String[] args) {
+        QueueUsingPQ queue = new QueueUsingPQ();
+        queue.enqueue(10);
+        queue.enqueue(20);
+        System.out.println(queue.dequeue());
+
+        StackUsingPQ stack = new StackUsingPQ();
+        stack.push(5);
+        stack.push(15);
+        System.out.println(stack.pop());
+    }
+}
